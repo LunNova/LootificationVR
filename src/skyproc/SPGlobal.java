@@ -33,11 +33,6 @@ public class SPGlobal {
      * Customizable Strings
      */
     /**
-     * Path and filename to look for the active plugins file.<br>
-     * "/Skyrim/plugins.txt" by default.
-     */
-    public static String pluginsListPath = "/Skyrim Special Edition/plugins.txt";
-    /**
      * Path to the Data/ folder to look for plugins to import/export.<br><br> By
      * default, this is set to "../../", meaning the patch has to be in a
      * subfolder of "Data/". (ex "Data/SkyProc Patchers/My SkyProc Patcher/My
@@ -308,7 +303,7 @@ public class SPGlobal {
      */
     static public File getSkyrimINI() throws FileNotFoundException, IOException {
         File myDocuments = Ln.getMyDocuments();
-        File ini = new File(myDocuments.getPath() + "//My Games//Skyrim Special Edition//Skyrim.ini");
+        File ini = new File(myDocuments.getPath() + "//My Games//Skyrim VR//SkyrimVR.ini");
 
         // See if there's a manual override
         File override = new File(SPGlobal.pathToInternalFiles + "Skyrim-INI-Location.txt");
