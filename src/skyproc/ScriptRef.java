@@ -6,11 +6,9 @@ package skyproc;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -60,11 +58,11 @@ public class ScriptRef extends Record implements Iterable<String> {
 
     @Override
     void export(ModExporter out) throws IOException {
-	name.export(out);
+	name.exportWithValidation(out);
 	out.write(unknown, 1);
 	out.write(properties.size(), 2);
 	for (ScriptProperty p : properties) {
-	    p.export(out);
+	    p.exportWithValidation(out);
 	}
     }
 

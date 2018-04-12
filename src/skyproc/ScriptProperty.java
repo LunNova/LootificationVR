@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -173,7 +172,7 @@ class ScriptProperty extends Record implements Serializable {
 
     @Override
     void export(ModExporter out) throws IOException {
-	name.export(out);
+	name.exportWithValidation(out);
 	out.write(getPropertyType().value, 1);
 	out.write(unknown, 1);
 	data.export(out);

@@ -82,17 +82,15 @@ public class ArmorTools {
 
 
                 insertTieredArmors(subList, tierKey, bits, merger, patch);
-                try {
-                if (subList.getEntry(0).getLevel() > 1) {
-                    subList.getEntry(0).setLevel(1);
-                }
-                } catch (RuntimeException e) {
-                    String error = e.getMessage() + "\nOutfit: " + lotft + " is coded to have a matching set but could not find any."
-                            + "\nYou are almost certainly not using a tesedit merged patch correctly.";
-                    RuntimeException ex = new RuntimeException(error);
-                    ex.setStackTrace(e.getStackTrace());
-                    throw ex;
-                }
+                if (subList.isEmpty()) {
+					String error = "Outfit: " + lotft + " is coded to have a matching set but could not find any."
+						+ "\nYou are almost certainly not using a tesedit merged patch correctly.";
+					SPGlobal.logError("Matching Set Error", error);
+				} else {
+					if (subList.getEntry(0).getLevel() > 1) {
+						subList.getEntry(0).setLevel(1);
+					}
+				}
                 lotft.addInventoryItem(subList.getForm());
 
                 if (needsShield(lotftName)) {

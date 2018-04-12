@@ -187,7 +187,7 @@ class SubList<S extends SubRecord<T>, T> extends SubRecord<ArrayList<S>> impleme
     void export(ModExporter out) throws IOException {
 	if (isValid()) {
 	    for (S s : translate()) {
-		s.export(out);
+		s.exportWithValidation(out);
 	    }
 	}
     }

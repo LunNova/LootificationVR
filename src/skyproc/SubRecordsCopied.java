@@ -7,7 +7,7 @@ package skyproc;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import lev.LOutFile;
+
 import lev.Ln;
 
 /**
@@ -37,7 +37,7 @@ class SubRecordsCopied extends SubRecords {
     @Override
     protected void export(ModExporter out) throws IOException {
 	for (SubRecord s : iteratorNoCopy()) {
-	    s.export(out);
+	    s.exportWithValidation(out);
 	}
     }
 

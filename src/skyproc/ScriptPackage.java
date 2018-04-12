@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -92,10 +91,10 @@ public class ScriptPackage extends SubRecord implements Serializable {
 	out.write(unknown, 2);
 	out.write(scripts.size(), 2);
 	for (ScriptRef s : scripts) {
-	    s.export(out);
+	    s.exportWithValidation(out);
 	}
 	if (fragments != null) {
-	    fragments.export(out);
+	    fragments.exportWithValidation(out);
 	}
     }
 

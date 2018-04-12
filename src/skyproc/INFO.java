@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LFlags;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -172,7 +171,7 @@ public class INFO extends MajorRecord {
 	    }
 	    out.write(unknown, 1);
 	    out.write(fragmentFlags.export());
-	    fragmentFile.export(out);
+	    fragmentFile.exportWithValidation(out);
 	    for (ScriptFragment frag : fragments) {
 		frag.export(out);
 	    }
@@ -216,8 +215,8 @@ public class INFO extends MajorRecord {
 
 	void export(ModExporter out) throws IOException {
 	    out.write(unknown, 1);
-	    scriptName.export(out);
-	    fragmentName.export(out);
+	    scriptName.exportWithValidation(out);
+	    fragmentName.exportWithValidation(out);
 	}
 
 	int getContentLength(ModExporter out) {

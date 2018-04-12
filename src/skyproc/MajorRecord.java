@@ -261,7 +261,7 @@ public abstract class MajorRecord extends Record implements Serializable {
             }
 
             if (shouldExportGRUP()) {
-                getGRUPAppend().export(out);
+                getGRUPAppend().exportWithValidation(out);
             }
         }
     }

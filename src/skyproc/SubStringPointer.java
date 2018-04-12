@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.Ln;
 import skyproc.Mod.Mod_Flags;
 import skyproc.exceptions.BadParameter;
@@ -51,13 +50,13 @@ class SubStringPointer extends SubRecordTyped {
 	if (isValid()) {
 	    if (out.getExportMod().isFlag(Mod.Mod_Flags.STRING_TABLED)) {
 		data.setData(Ln.toByteArray(out.getExportMod().addOutString(text.string, file), 4));
-		data.export(out);
+		data.exportWithValidation(out);
 	    } else {
 		if (text.isValid()) {
-		    text.export(out);
+		    text.exportWithValidation(out);
 		} else if (forceExport) {
 		    data.setData(0, shortNull? 1 : 4); // If short null 1, else 4
-		    data.export(out);
+		    data.exportWithValidation(out);
 		}
 	    }
 	}

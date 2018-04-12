@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
-import lev.LShrinkArray;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -100,10 +98,10 @@ public class ModListing extends SubRecord<ModListing> implements Comparable {
     @Override
     void export(ModExporter out) throws IOException {
 	mast.string = print(); // Put the suffix in the record
-	mast.export(out);
+	mast.exportWithValidation(out);
 	SubData data = new SubData("DATA");
 	data.initialize(8);
-	data.export(out);
+	data.exportWithValidation(out);
 	setString(print()); // Take suffix back out of record
     }
 

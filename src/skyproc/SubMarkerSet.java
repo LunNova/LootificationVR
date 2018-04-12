@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -40,14 +39,14 @@ class SubMarkerSet<T extends SubRecord> extends SubRecord {
 	    if (set.containsKey(t)) {
 		if (set.get(t).isValid()) {
 		    SubData marker = new SubData(t);
-		    marker.export(out);
-		    set.get(t).export(out);
+		    marker.exportWithValidation(out);
+		    set.get(t).exportWithValidation(out);
 		    continue;
 		}
 	    }
 	    if (forceMarkers) {
 		SubData marker = new SubData(t);
-		marker.export(out);
+		marker.exportWithValidation(out);
 	    }
 	}
     }

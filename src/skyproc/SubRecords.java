@@ -42,7 +42,7 @@ abstract class SubRecords implements Serializable, Iterable<SubRecord> {
 
     protected void export(ModExporter out) throws IOException {
 	for (SubRecord s : this) {
-	    s.export(out);
+	    s.exportWithValidation(out);
 
 	}
     }

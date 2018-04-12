@@ -6,10 +6,8 @@ package skyproc;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import lev.Ln;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -62,7 +60,7 @@ class SubListCounted<T extends SubRecord> extends SubList {
 	if (isValid()) {
 	    if (!"".equals(counterType)) {
 		SubData counter = new SubData(counterType, Ln.toByteArray(collection.size(), counterLength));
-		counter.export(out);
+		counter.exportWithValidation(out);
 	    }
 	    super.export(out);
 	}

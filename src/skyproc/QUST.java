@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LByteChannel;
 import lev.LImport;
-import lev.LOutFile;
 import lev.LFlags;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
@@ -825,7 +824,7 @@ public class QUST extends MajorRecordNamed {
 	    }
 	    out.write(unknown, 1);
 	    out.write(questFragments.size(), 2);
-	    fragmentFile.export(out);
+	    fragmentFile.exportWithValidation(out);
 	    for (QUSTScriptFragment frag : questFragments) {
 		frag.export(out);
 	    }
@@ -886,8 +885,8 @@ public class QUST extends MajorRecordNamed {
             out.write(unknown1, 2);
             out.write(questStageIndex);
             out.write(unknown2, 1);
-	    scriptName.export(out);
-	    fragmentName.export(out);
+	    scriptName.exportWithValidation(out);
+	    fragmentName.exportWithValidation(out);
 	}
 
 	int getContentLength(ModExporter out) {
@@ -946,7 +945,7 @@ public class QUST extends MajorRecordNamed {
             out.write(format, 2);
             out.write(scripts.size(), 2);
             for (ScriptRef s : scripts){
-                s.export(out);
+                s.exportWithValidation(out);
             }
 	}
 

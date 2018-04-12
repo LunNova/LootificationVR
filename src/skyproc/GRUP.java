@@ -78,6 +78,11 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
 	super.parseData(in, srcMod);
 	contained = in.extract(4);
 	grupType = in.extract(4); // What kind of GRUP data it has.
+		try {
+			GRUP_TYPE.valueOf(new String(grupType));
+		} catch (IllegalArgumentException e) {
+			logMod(srcMod, toString(), "Invalid grup type '" + new String(grupType) + "'" + this.toString());
+		}
 	dateStamp = in.extract(4);
 	version = in.extract(4);
 	while (!in.isDone()) {
@@ -137,23 +142,34 @@ public class GRUP<T extends MajorRecord> extends SubRecord implements Iterable<T
 	return "";
     }
 
+    void checkType(byte[] grupType) {
+		try {
+			GRUP_TYPE.valueOf(new String(grupType));
+		} catch (IllegalArgumentException e) {
+			logSync(this.toString(), toString(), "Invalid grup type '" + new String(grupType) + "'" + this.toString());
+		}
+	}
+
     @Override
     void export(ModExporter out) throws IOException {
-	out.write(getType().toString());
-	out.write(getContentLength(out) + getHeaderLength(), getSizeLength());
-	out.write(contained);
-	out.write(grupType);
-	out.write(dateStamp);
-	out.write(version);
-	if (logging()) {
-	    logSync(this.toString(), "Exporting " + this.numRecords() + " " + getContainedType() + " records.");
-	}
-	for (MajorRecord t : this) {
-	    if (logging()) {
-		logSync(this.toString(), t.toString());
-	    }
-	    t.export(out);
-	}
+		out.write(getType().toString());
+		int expectedLength = getContentLength(out) + getHeaderLength();
+		out.write(expectedLength, getSizeLength());
+		checkType(contained);
+		checkType(grupType);
+		out.write(contained);
+		out.write(grupType);
+		out.write(dateStamp);
+		out.write(version);
+		if (logging()) {
+			logSync(this.toString(), "Exporting " + this.numRecords() + " " + getContainedType() + " records.");
+		}
+		for (T t : this) {
+			if (logging()) {
+				logSync(this.toString(), t.toString());
+			}
+			t.exportWithValidation(out);
+		}
     }
 
     @Override

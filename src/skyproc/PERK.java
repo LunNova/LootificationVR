@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import lev.LImport;
-import lev.LOutFile;
 import skyproc.exceptions.BadParameter;
 import skyproc.exceptions.BadRecord;
 
@@ -150,7 +149,7 @@ public class PERK extends MajorRecordDescription {
 		return;
 	    }
 	    out.write(unknown, 1);
-	    fragmentFile.export(out);
+	    fragmentFile.exportWithValidation(out);
 	    out.write(fragments.size(), 2);
 	    for (PERKScriptFragment frag : fragments) {
 		frag.export(out);
@@ -198,8 +197,8 @@ public class PERK extends MajorRecordDescription {
 	void export(ModExporter out) throws IOException {
 	    out.write(index, 2);
 	    out.write(unknown);
-	    scriptName.export(out);
-	    fragmentName.export(out);
+	    scriptName.exportWithValidation(out);
+	    fragmentName.exportWithValidation(out);
 	}
 
 	int getContentLength(ModExporter out) {

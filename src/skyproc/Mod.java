@@ -774,12 +774,12 @@ public class Mod implements Comparable, Iterable<GRUP> {
             }
         }
 
-        tes.export(out);
+        tes.exportWithValidation(out);
 
         // Export GRUPs
         for (GRUP g : exportGRUPs) {
             SPProgressBarPlug.setStatusNumbered("Exporting " + this + ": " + g.getContainedType());
-            g.export(out);
+            g.exportWithValidation(out);
             SPProgressBarPlug.incrementBar();
         }
 
@@ -827,7 +827,7 @@ public class Mod implements Comparable, Iterable<GRUP> {
 
         SPProgressBarPlug.setStatusNumbered("Validating Record Lengths");
         // Validate all record lengths are correct
-        if (!NiftyFunc.validateRecordLengths(outPath, 1)) {
+        if (!NiftyFunc.validateRecordLengths(outPath, 10)) {
             SPGlobal.logError("Record Length Check", "Record lengths were off.");
             throw new BadRecord("Record lengths are off.");
         }

@@ -60,8 +60,8 @@ public class KeywordSet extends SubRecord {
     void export(ModExporter out) throws IOException {
         if (isValid()) {
             counter.setData(keywords.size(), 4);
-            counter.export(out);
-            keywords.export(out);
+            counter.exportWithValidation(out);
+            keywords.exportWithValidation(out);
         }
     }
 

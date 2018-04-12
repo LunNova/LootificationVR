@@ -113,6 +113,21 @@ public abstract class Record implements Serializable {
         return datasize;
     }
 
+    final void exportWithValidation(ModExporter out) throws IOException {
+		if (!isValid())
+			return;
+		int expectedLength = getTotalLength(out);
+
+		int start = out.written;
+		export(out);
+		int actualLength = out.written - start;
+
+		if (expectedLength != actualLength) {
+			logSync(this.toString(), "Exported " + this + " Expected length: " + expectedLength + " actual " + actualLength);
+			//throw new Error("Failed to export " + this + " Expected length: " + expectedLength + " Actual length: " + actualLength);
+		}
+	}
+
     void export(ModExporter out) throws IOException {
 	if (isValid()) {
 	    out.write(getType().toString());
