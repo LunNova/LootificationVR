@@ -233,7 +233,7 @@ public class WEAP extends MajorRecordDescription {
 
 	@Override
 	int getContentLength(ModExporter out) {
-	    return 100;
+	    return 108;
 	}
 
 	@Override
